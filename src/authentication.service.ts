@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { AuthDataService } from './authData.service';
 import { AuthData } from './models/authData';
 import { Login } from './models/login';
 
@@ -8,7 +9,8 @@ import { Login } from './models/login';
 export class AuthenticationService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private authDataService: AuthDataService
   ) { }
 
   login(url: string, login: Login) {
@@ -24,21 +26,13 @@ export class AuthenticationService {
   }
 
   isAuthenticated(): boolean {
-    const token = this.getAuthData();
+    const token = this.authDataService.getAuthData();
     return token ? true : false;
-  }
-
-  setAuthData(authData: AuthData) {
-    localStorage.setItem('auth', JSON.stringify(authData));
-  }
-
-  getAuthData(): AuthData {
-    return JSON.parse(localStorage.getItem('auth'));
   }
 
   private extractData(res: any) {
     const authData = new AuthData(res.token, res.user);
-    this.setAuthData(authData);
+    this.authDataService.setAuthData(authData);
   }
 
   private handleError(error: any): Promise<any> {

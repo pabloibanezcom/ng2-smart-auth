@@ -1,6 +1,6 @@
 {
   "name": "ng2-smart-auth",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "scripts": {
     "start": "npm run docs && node server.js",
     "build": "gulp build",
