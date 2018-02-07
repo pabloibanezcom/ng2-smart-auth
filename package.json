@@ -2,7 +2,7 @@
   "name": "ng2-smart-auth",
   "version": "0.1.0",
   "scripts": {
-    "start": "npm run docs",
+    "start": "npm run docs && node server.js",
     "build": "gulp build",
     "build:watch": "gulp",
     "docs": "npm run docs:build",
@@ -13,8 +13,7 @@
     "lite": "lite-server",
     "playground:build": "tsc -p playground -w",
     "playground": "concurrently \"npm run build:watch\" \"npm run playground:build\" \"npm run lite\"",
-    "test": "tsc && karma start",
-    "postinstall": "npm run docs"
+    "test": "tsc && karma start"
   },
   "repository": {
     "type": "git",
@@ -46,6 +45,7 @@
     "codelyzer": "~3.2.0",
     "concurrently": "^3.4.0",
     "core-js": "^2.4.1",
+    "express": "^4.16.2",
     "fs-extra": "^5.0.0",
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
