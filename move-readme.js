@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-const sourcePath = './src/README.MD';
-const rootPath = './README.MD';
+const sourcePath = './app/src/README.MD';
+const rootPath = './app/README.MD';
 
 // Check if README.MD exists in root
 
