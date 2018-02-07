@@ -16,10 +16,10 @@ export * from './token.interceptor';
     CommonModule
   ]
 })
-export class SampleModule {
+export class Ng2SmarthAuthModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: SampleModule,
+      ngModule: Ng2SmarthAuthModule,
       providers: [
         AuthenticationService,
         AuthGuard
