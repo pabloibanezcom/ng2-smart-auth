@@ -2,15 +2,16 @@
   "name": "ng2-smart-auth",
   "version": "0.1.0",
   "scripts": {
-    "start": "npm run docs && node server.js",
+    "start": "npm run movereadme && npm run docs && node server.js",
     "build": "gulp build",
     "build:watch": "gulp",
     "docs": "npm run docs:build",
-    "docs:build": "compodoc -p tsconfig.json -n ng2-smart-auth -d docs --hideGenerator",
+    "docs:build": "compodoc -p tsconfig.json -n ng2-smart-auth -d docs --hideGenerator --theme Readthedocs",
     "docs:serve": "npm run docs:build -- -s",
     "docs:watch": "npm run docs:build -- -s -w",
     "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
     "lite": "lite-server",
+    "movereadme": "node move-readme.js",
     "playground:build": "tsc -p playground -w",
     "playground": "concurrently \"npm run build:watch\" \"npm run playground:build\" \"npm run lite\"",
     "test": "tsc && karma start"
