@@ -1,5 +1,11 @@
 # ng2-smart-auth
 
+<!-- Badges section here. -->
+
+[![npm](https://img.shields.io/npm/v/ng2-smart-auth.svg)][npm-badge-url]
+[![npm](https://img.shields.io/npm/l/ng2-smart-auth.svg)][npm-badge-url]
+[![npm](https://david-dm.org/pabloibanezcom/ng2-smart-auth/status.svg)][david-dependency-url]
+
 ## Installation
 
 To install this library, run:
