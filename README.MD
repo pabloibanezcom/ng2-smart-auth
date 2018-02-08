@@ -8,65 +8,113 @@ To install this library, run:
 $ npm install ng2-smart-auth --save
 ```
 
-## Consuming your library
+## Setting Up
 
-Once you have published your library to npm, you can import your library in any Angular application by running:
+### TokenInterceptor
 
-```bash
-$ npm install ng2-smart-auth
-```
-
-and then from your Angular `AppModule`:
+This makes all http requests to contain the token stored in local storage (if exists). We need to import it in the main `AppModule`: 
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { AppComponent } from './app.component';
-
-// Import your library
-import { SampleModule } from 'ng2-smart-auth';
+import { TokenInterceptor } from 'ng2-smart-auth';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
-
-    // Specify your library as an import
-    LibraryModule
+    BrowserModule
   ],
-  providers: [],
+  providers: [
+    ...,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 ```
 
-Once your library is imported, you can use its components, directives and pipes in your Angular application:
+### AuthenticationService and AuthGuard
 
-```xml
-<!-- You can now use your library component in app.component.html -->
-<h1>
-  {{title}}
-</h1>
-<sampleComponent></sampleComponent>
+AuthenticationService is the main service in the module. We can use it to manage user authentication state (login, logout,...)
+
+AuthGuard is a [CanActivate](https://angular.io/api/router/CanActivate) guard that checks if the user is authenticated or not.
+
+First we need to import them in the highest module where we want to use authentication.
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AuthenticationService, AuthGuard } from 'ng2-smart-auth';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [
+    ...,
+    AuthenticationService,
+    AuthGuard
+   ],
+  bootstrap: [AppComponent]
+})
+export class AdminModule { }
 ```
+Then we can use AuthenticationService as follows:
 
-## Development
+```typescript
+import { AuthenticationService } from 'ng2-smart-auth';
 
-To generate all `*.js`, `*.d.ts` and `*.metadata.json` files:
+...
 
-```bash
-$ npm run build
+constructor(private authenticationService: AuthenticationService) { }
+
+...
+
+login() {
+    this.authenticationService.login('myLoginUrl', myLoginObj)
+      .then(res => {
+        // Navigate to next view
+      })
+      .catch(err => {
+        // Handle error
+      });
+  }
 ```
+Finally we should set up AuthGuard (optional) to stop user to navigate to non allowed view whitout authorization.
 
-To lint all `*.ts` files:
+```typescript
+...
+import { AuthGuard } from 'ng2-smart-auth';
 
-```bash
-$ npm run lint
+const adminRoutes: Routes = [
+    ...
+    {
+        path: ':section',
+        component: AdminBaseComponent,
+        canActivate: [AuthGuard],
+        data: {
+            redirectUrl: '/admin/login'
+        }
+    }
+];
+
+export const AdminRouting = RouterModule.forChild(adminRoutes);
 ```
+Note that data.redirectUrl defines the url to redirect when not allowed.
+
 
 ## License
 
-MIT © [Pablo Ibanez](mailto:me@pabloibanez.com)
+MIT © [Pablo Ibanez](www.pabloibanez.com)
