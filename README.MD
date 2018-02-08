@@ -2,9 +2,9 @@
 
 <!-- Badges section here. -->
 
+[npm-badge-url]: https://www.npmjs.com/package/ng2-smart-auth
 [![npm](https://img.shields.io/npm/v/ng2-smart-auth.svg)][npm-badge-url]
 [![npm](https://img.shields.io/npm/l/ng2-smart-auth.svg)][npm-badge-url]
-[![npm](https://david-dm.org/pabloibanezcom/ng2-smart-auth/status.svg)][david-dependency-url]
 
 ## Installation
 
@@ -124,3 +124,4 @@ Note that data.redirectUrl defines the url to redirect when not allowed.
 ## License
 
 MIT © [Pablo Ibanez](www.pabloibanez.com)
+
