@@ -29,7 +29,7 @@ export class AuthenticationService {
   }
 
   private extractData(res: any) {
-    const authData = new AuthData(res.token, res.user);
+    const authData = new AuthData(res.token, res.user, res.authLevel);
     localStorage.setItem('auth', JSON.stringify(authData));
   }
 
