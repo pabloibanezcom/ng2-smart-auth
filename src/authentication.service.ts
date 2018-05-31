@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Injectable } from '@angular/core';
 import { AuthData } from './models/authData';
 import { Login } from './models/login';
+
 
 @Injectable()
 export class AuthenticationService {
@@ -28,8 +28,12 @@ export class AuthenticationService {
     return token ? true : false;
   }
 
+  getAuth(): AuthData {
+    return JSON.parse(localStorage.getItem('auth'));
+  }
+
   private extractData(res: any) {
-    const authData = new AuthData(res.token, res.user, res.authLevel);
+    const authData = new AuthData(res.token, res.user, res.authLevel, res.data);
     localStorage.setItem('auth', JSON.stringify(authData));
   }
 
